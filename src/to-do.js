@@ -1,12 +1,12 @@
 
 class todoItem {
-  constructor (title, description, dueDate, project, priority, completionStatus)  {
+  constructor (title, description, dueDate, project, priority/* , completionStatus */)  {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.project = project;
     this.priority = priority;
-    this.completionStatus = completionStatus;
+    /* this.completionStatus = completionStatus; */
   }
 
 };
@@ -14,6 +14,7 @@ class todoItem {
 export default class todoControlller {
     constructor() {
         this.todoList = [];
+        this.completedList = [];
     }
     
     getTodos() {
@@ -26,16 +27,20 @@ export default class todoControlller {
         
     }
 
-    createTodo(title, description, dueDate, project, priority, completionStatus) {
-        const newTodo = new todoItem(title, description, dueDate, project, priority, completionStatus);
+    createTodo(title, description, dueDate, project, priority, /* completionStatus*/)  {
+        const newTodo = new todoItem(title, description, dueDate, project, priority/* , completionStatus */);
         this.todoList.push(newTodo);
-        return newTodo
+        /* project.projectList.push(newTodo.project); //not sure if this will work */
+        
+        return this.todoList;
+        
     }
 
     deleteTodo(itemIndex) {
         const index = this.todoList.findIndex;
         if(index !== -1) {
             this.todoList.splice(itemIndex, 1);
+            console.log(this.todoList)
             
         }
     }
@@ -61,5 +66,13 @@ export default class todoControlller {
         
 
     }
+
+    pushComplete (itemIndex) {
+        const selectedtodoItem = this.todoList[itemIndex]
+        this.completedList.push(selectedtodoItem)
+        this.deleteTodo(itemIndex);
+    }
+
+
 }
 
