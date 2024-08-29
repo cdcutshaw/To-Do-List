@@ -3,12 +3,13 @@
     padding: 0;
     box-sizing: border-box;
     line-height: 1.5;
+    color:#050518;
   }
 
 body {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 2.5fr;
 }
 
 .sidebar {
@@ -21,6 +22,51 @@ body {
     margin: 20px;
 }
 
+.sideHeader, .allTodos, .addTodo, .addProjects, .completedTodos {
+    display: flex;
+    align-items: center;
+    
+}
+
+h1 {
+    font-size: 2rem;
+    padding: 5px;
+}
+h2 {
+    font-size: 1.5rem;
+    border-bottom: 1px solid #050518;
+}
+h3{
+    font-size: 1rem;
+
+}
+
+.icon {
+    height: 20px;
+    padding-right: 10px;
+}
+
+button{
+    width: 100%;
+    background-color:rgb(105, 105, 105) ;
+    border: none;
+}
+button:hover {
+    background-color: #05051883;
+}
+button:active {
+    background-color: #05051883;
+}
+button:focus {
+    background-color: #05051883;
+}
+
+
 .display {
     background-color: rgb(243, 245, 244);
+}
+
+.todoCard {
+    background-color: #05051865;
+    margin: 20px;
 }
