@@ -4,7 +4,7 @@ export default class projectController {
     }
 
     getProjects() {
-        console.log(this.projectList);
+        /* console.log(this.projectList); */
         return this.projectList;
     }
 
@@ -33,6 +33,9 @@ export default class projectController {
             this.projectList[index] = newProjectTitle;
         }
     }
+
+    
+    
 }
 
 
