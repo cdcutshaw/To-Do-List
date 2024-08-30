@@ -22,6 +22,10 @@ export default class todoControlller {
         return this.todoList
     }
 
+    getcompletedTodos() {
+        return this.completedList;
+    }
+
     clearTodos() {
         this.todoList = [];
         
@@ -30,7 +34,6 @@ export default class todoControlller {
     createTodo(title, description, dueDate, project, priority, /* completionStatus*/)  {
         const newTodo = new todoItem(title, description, dueDate, project, priority/* , completionStatus */);
         this.todoList.push(newTodo);
-        /* project.projectList.push(newTodo.project); //not sure if this will work */
         
         return this.todoList;
         
@@ -70,8 +73,11 @@ export default class todoControlller {
     pushComplete (itemIndex) {
         const selectedtodoItem = this.todoList[itemIndex]
         this.completedList.push(selectedtodoItem)
-        this.deleteTodo(itemIndex);
+        this.deleteTodo(itemIndex); 
+        return (this.completedList)
     }
+
+    
 
 
 }
