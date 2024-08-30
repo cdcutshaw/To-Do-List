@@ -22,7 +22,7 @@ body {
     margin: 20px;
 }
 
-.sideHeader, .allTodos, .addTodo, .addProjects, .completedTodos {
+.sideHeader, #allTodosBtn, .addTodo, .addProjects, #completedBtn {
     display: flex;
     align-items: center;
     
