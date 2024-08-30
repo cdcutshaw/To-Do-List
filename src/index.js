@@ -10,6 +10,7 @@ function loadPage() {
     const project = new projectController();
     const todo = new todoControlller();
     const display = document.getElementById('activeTodos');
+    const displayHeading = document.getElementById('displayHeading')
     
     
 
@@ -45,6 +46,7 @@ function loadPage() {
         todoCard.id = todo.todoList.indexOf(element);  
         todoCard.className = 'todoCard';
         deleteBtn.id = ('deleteBtn');
+        markComplete.id = ('markComplete')
         
         todoTitle.textContent = `${element.title}`; 
         todoDescription.textContent = `Description: ${element.description}`; 
@@ -115,20 +117,16 @@ function loadPage() {
             
             dialog.close();
             clearDisplay();
+            /* displayHeading.textContent = `All Active TODOs` */
             displayAllTodos();
-            document.getElementById('tadodoForm').reset(); 
+            document.getElementById('todoForm').reset(); 
             
             
 
         }
     }  
     
-    //const addProject
-    //const editTodo
-    //const displayTodobyProject
-    //const displayCompletedTodos
-   
-
+    
 
     const displayProjects = () => {
         project.getProjects();
@@ -146,13 +144,42 @@ function loadPage() {
         todo.getTodos();
         for (const element of todo.todoList) {
             makeTodoCard(element);
+            displayHeading.textContent = `All Active TODOs`
         }  
     } 
+
+    const displayCompletedTodos = () => {
+        todo.getcompletedTodos();
+        for(const element of todo.completedList) {
+            makeTodoCard(element);
+            markComplete.remove();
+        }
+    }
+
+    const handleCompletedBtn = () => {
+        const completedBtn =  document.getElementById('completedBtn')
+        completedBtn.addEventListener("click", () => {
+            clearDisplay();
+            displayHeading.textContent = `Completed TODOs`
+            displayCompletedTodos();
+
+        })
+    }
+
+    const handleAllTodosBtn = () => {
+        const allTodosBtn = document.getElementById('allTodosBtn')
+        allTodosBtn.addEventListener("click", () => {
+            clearDisplay();
+            displayAllTodos();
+        })
+    }
+
+    
 
     
 
 
-return displayProjects(), displayAllTodos(), addTodo();
+return displayProjects(), displayAllTodos(), addTodo(), handleAllTodosBtn(), handleCompletedBtn();
 }
 
 loadPage();
