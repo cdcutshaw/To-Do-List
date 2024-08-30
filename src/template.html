@@ -13,11 +13,11 @@
     </div>
     <div class="todoMenu">
         <h2>TO-DOs</h2>
-        <button class="allTodos">
+        <button id="allTodosBtn">
             <img  class=icon src="assets/checklist_rtl_24dp_050518_FILL0_wght400_GRAD0_opsz24.svg" alt="all todos icon">
             <h3>All TO-DOs</h3>
         </button>
-        <button class="completedTodos">
+        <button id="completedBtn">
             <img  class=icon src="assets/task_alt_24dp_050518_FILL0_wght400_GRAD0_opsz24.svg" alt="all todos icon">
             <h3>Completed</h3>
         </button>
@@ -29,7 +29,7 @@
                 <form action="#" method="dialog" id="todoForm">
                     <fieldset>
                         <label for="title">Title:</label>
-                        <input type="text" name="title" id="title" >
+                        <input type="text" name="title" id="title" required>
 
                         <label for="project">Project:</label>
                         <input type="text" name="project" id="project" value="General" required>
@@ -74,6 +74,7 @@
     
 </div>
 <div id="display">
+    <h2 id="displayHeading">All Active TODOs</h2>
     <div id="activeTodos"></div>
 </div>
     
