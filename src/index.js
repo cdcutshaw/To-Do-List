@@ -44,9 +44,10 @@ function loadPage() {
         
            
         todoCard.id = todo.todoList.indexOf(element);  
-        todoCard.className = 'todoCard';
+        todoCard.className = ('todoCard');
         deleteBtn.id = ('deleteBtn');
-        markComplete.id = ('markComplete')
+        markComplete.id = ('markComplete');
+        editBtn.id = ('editBtn')
         
         todoTitle.textContent = `${element.title}`; 
         todoDescription.textContent = `Description: ${element.description}`; 
@@ -68,7 +69,7 @@ function loadPage() {
             };
         })
 
-        deleteBtn.addEventListener("click", () =>{
+        deleteBtn.addEventListener("click", () => {
             const itemIndex = todo.todoList.indexOf(element)
             todo.deleteTodo(itemIndex);
             clearDisplay();
@@ -76,8 +77,25 @@ function loadPage() {
         })
 
         
+        editBtn.addEventListener("click", () => {
 
+            const Title = document.getElementById('title');
+            const project = document.getElementById('project');
+            const description = document.getElementById('description');
+            const dueDate = document.getElementById('dueDate');
+            const priority = document.getElementById('priority');
             
+            addTodoDialog.showModal(); 
+            Title.value = element.title;
+            project.value = element.project;
+            description.value = element.description;
+            dueDate.value = element.dueDate;
+            priority.value =element.priority;  
+
+            const itemIndex = todo.todoList.indexOf(element)
+            todo.deleteTodo(itemIndex);
+        })
+
         activeTodos.appendChild(todoCard);
         todoCard.append(markComplete);
         todoCard.appendChild(todoTitle);
@@ -87,20 +105,19 @@ function loadPage() {
         todoCard.appendChild(todopriority);
         todoCard.appendChild(deleteBtn);
         todoCard.appendChild(editBtn);
-
-
   }
     const addTodo = () => {
         
-        const dialog = document.querySelector('dialog')
+        const addTodoDialog = document.getElementById('addTodoDialog')
         const addBtn = document.querySelector('.addTodo');
         addBtn.addEventListener("click", () => {
-            dialog.showModal();
+            addTodoDialog.showModal();
         
         })
         const closeBtn = document.getElementById('closeBtn') 
         closeBtn.addEventListener("click", () => {
-             dialog.close();
+            document.getElementById('todoForm').reset(); 
+             addTodoDialog.close();
              
             
         })
@@ -115,17 +132,15 @@ function loadPage() {
 
              todo.createTodo(title, description, dueDate, project, priority); 
             
-            dialog.close();
+            addTodoDialog.close();
             clearDisplay();
-            /* displayHeading.textContent = `All Active TODOs` */
             displayAllTodos();
             document.getElementById('todoForm').reset(); 
-            
-            
 
         }
     }  
-    
+
+ 
     
 
     const displayProjects = () => {
@@ -153,7 +168,21 @@ function loadPage() {
         for(const element of todo.completedList) {
             makeTodoCard(element);
             markComplete.remove();
+            editBtn.remove();
         }
+    }
+
+    const pushProjectstoList  = () => {
+        //need to get all project values from todoList and push to project List
+        
+    }
+
+    const displayTodosByProject = () =>{
+        //display todos filtered by project
+    }
+
+    const addProject = () => {
+        //use dialog form to add new project to projectList
     }
 
     const handleCompletedBtn = () => {
@@ -179,7 +208,7 @@ function loadPage() {
     
 
 
-return displayProjects(), displayAllTodos(), addTodo(), handleAllTodosBtn(), handleCompletedBtn();
+return displayProjects(), displayAllTodos(), addTodo(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn();
 }
 
 loadPage();
