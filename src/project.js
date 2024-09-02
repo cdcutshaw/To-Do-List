@@ -4,7 +4,6 @@ export default class projectController {
     }
 
     getProjects() {
-        /* console.log(this.projectList); */
         return this.projectList;
     }
 
@@ -23,6 +22,7 @@ export default class projectController {
         const index = this.projectList.findIndex((project) => project === projectTitle);
         if(index !== -1) {
             this.projectList.splice(index, 1);
+            console.log(this.projectList)
             
         }
     }
@@ -32,6 +32,7 @@ export default class projectController {
         if (index !== -1) {
             this.projectList[index] = newProjectTitle;
         }
+
     }
 
     

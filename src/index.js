@@ -76,7 +76,6 @@ function loadPage() {
             clearDisplay();
             displayAllTodos();
         })
-
         
         editBtn.addEventListener("click", () => {
 
@@ -107,6 +106,7 @@ function loadPage() {
         todoCard.appendChild(deleteBtn);
         todoCard.appendChild(editBtn);
   }
+
     const addTodo = () => {
         
         const addTodoDialog = document.getElementById('addTodoDialog')
@@ -115,13 +115,13 @@ function loadPage() {
             addTodoDialog.showModal();
         
         })
+        
         const closeBtn = document.getElementById('closeBtn') 
         closeBtn.addEventListener("click", () => {
             document.getElementById('todoForm').reset(); 
              addTodoDialog.close();
-             
-            
         })
+
         document.getElementById('todoForm').onsubmit = (event) => {
             event.preventDefault();
              todo.getTodos();
@@ -142,19 +142,64 @@ function loadPage() {
         }
     }  
 
- 
-    
 
     const displayProjects = () => {
         project.getProjects();
         for(const element of project.projectList){
-            const btn = makeProjectButton(element);
-            btn.textContent = element  
+            const projectBtn = makeProjectButton(element);
+            const projectTitle = element;
+            projectBtn.textContent = projectTitle
+
+            
+          
+            projectBtn.addEventListener ("click", () =>{
+                clearDisplay();
+                displayHeading.textContent = `Project: ${projectTitle}`
+                const filteredtodos = todo.todoList.filter(element => element.project === projectTitle)
+                for (const item of filteredtodos) {
+                  makeTodoCard(item)  
+                }
+
+               HandleDeleteProject(projectTitle)
+               
+            }) 
         }
     }
 
+
+    const HandleDeleteProject = (projectTitle) => {
+        const deleteProjectBtn = document.createElement('button')
+        deleteProjectBtn.textContent = `Delete Project`
+        displayHeading.appendChild(deleteProjectBtn)
+        console.log(projectTitle)
+
+        if (projectTitle === 'General') {
+            deleteProjectBtn.remove();
+        }
+
+        deleteProjectBtn.addEventListener("click", () => {
+            project.deleteProject(projectTitle);
+            clearProjectDisplay();
+            clearDisplay();
+            displayProjects();
+            deleteTodoByProject(projectTitle)  
+            displayAllTodos(); 
+        })
+    }
+
+    const deleteTodoByProject = (projectTitle) => {
+        const filteredtodos = todo.todoList.filter(element => element.project === projectTitle)
+                for (const item of filteredtodos) {
+                   const itemIndex = todo.todoList.indexOf(item)
+                    todo.deleteTodo(itemIndex); 
+                } 
+    }  
+
     const clearDisplay = () => {
         display.textContent = ''
+    }
+    const clearProjectDisplay = () => {
+        projectsDisplay.textContent = ''
     }
 
     const displayAllTodos = () => {
@@ -175,16 +220,11 @@ function loadPage() {
     }
 
     const pushProjectstoList  = () => {
-        //need to get all project values from todoList and push to project List
         for(const element of todo.todoList){
             project.createProject(element.project);
             }
             projectsDisplay.textContent = ""
             displayProjects();
-    }
-
-    const displayTodosByProject = () =>{
-        //display todos filtered by project
     }
 
     const addProject = () => {
@@ -209,12 +249,7 @@ function loadPage() {
         })
     }
 
-    
-
-    
-
-
-return /* displayProjects(), */ displayAllTodos(), addTodo(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn();
+return displayAllTodos(), addTodo(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn();
 }
 
 loadPage();

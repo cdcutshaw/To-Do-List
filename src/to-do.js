@@ -1,12 +1,11 @@
 
 class todoItem {
-  constructor (title, description, dueDate, project, priority/* , completionStatus */)  {
+  constructor (title, description, dueDate, project, priority)  {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.project = project;
     this.priority = priority;
-    /* this.completionStatus = completionStatus; */
   }
 
 };
@@ -18,7 +17,6 @@ export default class todoControlller {
     }
     
     getTodos() {
-        /* console.log(this.todoList); */
         return this.todoList
     }
 
@@ -43,8 +41,6 @@ export default class todoControlller {
         const index = this.todoList.findIndex;
         if(index !== -1) {
             this.todoList.splice(itemIndex, 1);
-            console.log(this.todoList)
-            
         }
     }
 
@@ -66,8 +62,6 @@ export default class todoControlller {
             selectedtodoItem.project = project;
             selectedtodoItem.priority = priority;
             selectedtodoItem.completionStatus =  completionStatus;
-        
-
     }
 
     pushComplete (itemIndex) {
@@ -76,14 +70,6 @@ export default class todoControlller {
         this.deleteTodo(itemIndex); 
         return (this.completedList)
     }
-
-    filterProjects() {
-        for(const element of this.todoList){
-        console.log(element.project)
-        }
-    }
-
-    
 
 
 }
