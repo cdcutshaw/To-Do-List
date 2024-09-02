@@ -11,6 +11,7 @@ function loadPage() {
     const todo = new todoControlller();
     const display = document.getElementById('activeTodos');
     const displayHeading = document.getElementById('displayHeading')
+    const projectsDisplay = document.getElementById('projectList')
     
     
 
@@ -135,6 +136,7 @@ function loadPage() {
             addTodoDialog.close();
             clearDisplay();
             displayAllTodos();
+            pushProjectstoList();
             document.getElementById('todoForm').reset(); 
 
         }
@@ -174,7 +176,11 @@ function loadPage() {
 
     const pushProjectstoList  = () => {
         //need to get all project values from todoList and push to project List
-        
+        for(const element of todo.todoList){
+            project.createProject(element.project);
+            }
+            projectsDisplay.textContent = ""
+            displayProjects();
     }
 
     const displayTodosByProject = () =>{
@@ -208,7 +214,7 @@ function loadPage() {
     
 
 
-return displayProjects(), displayAllTodos(), addTodo(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn();
+return /* displayProjects(), */ displayAllTodos(), addTodo(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn();
 }
 
 loadPage();

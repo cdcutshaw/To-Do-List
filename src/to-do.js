@@ -18,7 +18,7 @@ export default class todoControlller {
     }
     
     getTodos() {
-        console.log(this.todoList);
+        /* console.log(this.todoList); */
         return this.todoList
     }
 
@@ -75,6 +75,12 @@ export default class todoControlller {
         this.completedList.push(selectedtodoItem)
         this.deleteTodo(itemIndex); 
         return (this.completedList)
+    }
+
+    filterProjects() {
+        for(const element of this.todoList){
+        console.log(element.project)
+        }
     }
 
     

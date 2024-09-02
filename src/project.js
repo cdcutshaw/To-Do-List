@@ -1,6 +1,6 @@
 export default class projectController {
     constructor() {
-        this.projectList = ['General', 'The Odin Project', 'Chores', 'Errands', 'Appointments']
+        this.projectList = ['General']
     }
 
     getProjects() {
