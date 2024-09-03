@@ -31,7 +31,6 @@ function loadPage() {
     };
     
     const makeTodoCard = (element) => {
-        todo.getTodos();
         const activeTodos = document.getElementById('activeTodos');
         const todoCard = document.createElement('div');
         const todoTitle = document.createElement('div');
@@ -44,7 +43,7 @@ function loadPage() {
         const editBtn = document.createElement('button');
         
            
-        todoCard.id = todo.todoList.indexOf(element);  
+        todoCard.id = todo.todoList.indexOf(element);   
         todoCard.className = ('todoCard');
         deleteBtn.id = ('deleteBtn');
         markComplete.id = ('markComplete');
@@ -57,23 +56,22 @@ function loadPage() {
         todopriority.textContent = `Priority: ${element.priority}`;
         deleteBtn.textContent = `Delete`
         editBtn.textContent =`Edit`
-
         markComplete.type ='checkbox';
         
         markComplete.addEventListener('change', () => {
             const itemIndex = todo.todoList.indexOf(element)
             if (markComplete.checked = true){
                 todo.pushComplete(itemIndex);
-                clearDisplay();
-            displayAllTodos();
+                const selectedCard = document.getElementById(todoCard.id)
+                selectedCard.remove();
             };
         })
 
         deleteBtn.addEventListener("click", () => {
             const itemIndex = todo.todoList.indexOf(element)
+            const selectedCard = document.getElementById(todoCard.id)
+            selectedCard.remove();
             todo.deleteTodo(itemIndex);
-            clearDisplay();
-            displayAllTodos();
         })
         
         editBtn.addEventListener("click", () => {
@@ -164,7 +162,30 @@ function loadPage() {
             }) 
         }
     }
+const addProject = () => {
+        const addProjectDialog = document.getElementById('addProjectDialog')
+        const addProjectBtn = document.querySelector('.addProjects'); 
+        addProjectBtn.addEventListener("click", () => {
+            addProjectDialog.showModal();
+        })
 
+        const projectFormCloseBtn = document.getElementById('projectFormCloseBtn') 
+        projectFormCloseBtn.addEventListener("click", () => {
+            document.getElementById('projectForm').reset(); 
+             addProjectDialog.close();
+            }) 
+
+        document.getElementById('projectForm').onsubmit = (event) => {
+            event.preventDefault();
+            const newProject = document.getElementById('newProject').value;
+            project.createProject(newProject);
+            addProjectDialog.close();
+            clearProjectDisplay();
+            displayProjects();
+            document.getElementById('projectForm').reset();
+        }
+
+    }
 
     const HandleDeleteProject = (projectTitle) => {
         const deleteProjectBtn = document.createElement('button')
@@ -226,30 +247,7 @@ function loadPage() {
             displayProjects();
     }
 
-    const addProject = () => {
-        const addProjectDialog = document.getElementById('addProjectDialog')
-        const addProjectBtn = document.querySelector('.addProjects'); 
-        addProjectBtn.addEventListener("click", () => {
-            addProjectDialog.showModal();
-        })
-
-        const projectFormCloseBtn = document.getElementById('projectFormCloseBtn') 
-        projectFormCloseBtn.addEventListener("click", () => {
-            document.getElementById('projectForm').reset(); 
-             addProjectDialog.close();
-            }) 
-
-        document.getElementById('projectForm').onsubmit = (event) => {
-            event.preventDefault();
-            const newProject = document.getElementById('newProject').value;
-            project.createProject(newProject);
-            addProjectDialog.close();
-            clearProjectDisplay();
-            displayProjects();
-            document.getElementById('projectForm').reset();
-        }
-
-    }
+    
 
     const handleCompletedBtn = () => {
         const completedBtn =  document.getElementById('completedBtn')
