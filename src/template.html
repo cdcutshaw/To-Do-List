@@ -23,7 +23,7 @@
         </button>
 
 
-        <div class="addDialog">
+        <div>
 
             <dialog id="addTodoDialog">
                 <form action="#" method="dialog" id="todoForm">
@@ -65,10 +65,22 @@
 
 
         <div id="projectList"></div>
-        <button class="addProjects">
-            <img class=icon src="assets/add_circle_24dp_050518_FILL0_wght400_GRAD0_opsz24.png" alt="add icon">
-            <h3> Add Project </h3>
-        </button>
+        <div>
+            <dialog id="addProjectDialog">
+                <form action="#" method="dialog" id="projectForm">
+                    <fieldset>
+                        <label for="newProject">New Project:</label>
+                        <input type="text" name="newProject" id="newProject"  required>
+                    </fieldset>
+                    <input type="submit" id="submitBtn">
+                    <button id="projectFormCloseBtn">X</button>
+                </form>
+            </dialog>
+            <button class="addProjects">
+                <img class=icon src="assets/add_circle_24dp_050518_FILL0_wght400_GRAD0_opsz24.png" alt="add icon">
+                <h3> Add Project </h3>
+            </button>
+        </div>
 
     </div>
     

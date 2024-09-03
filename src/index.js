@@ -66,7 +66,6 @@ function loadPage() {
                 todo.pushComplete(itemIndex);
                 clearDisplay();
             displayAllTodos();
-            console.log(todo.completedList)
             };
         })
 
@@ -228,7 +227,28 @@ function loadPage() {
     }
 
     const addProject = () => {
-        //use dialog form to add new project to projectList
+        const addProjectDialog = document.getElementById('addProjectDialog')
+        const addProjectBtn = document.querySelector('.addProjects'); 
+        addProjectBtn.addEventListener("click", () => {
+            addProjectDialog.showModal();
+        })
+
+        const projectFormCloseBtn = document.getElementById('projectFormCloseBtn') 
+        projectFormCloseBtn.addEventListener("click", () => {
+            document.getElementById('projectForm').reset(); 
+             addProjectDialog.close();
+            }) 
+
+        document.getElementById('projectForm').onsubmit = (event) => {
+            event.preventDefault();
+            const newProject = document.getElementById('newProject').value;
+            project.createProject(newProject);
+            addProjectDialog.close();
+            clearProjectDisplay();
+            displayProjects();
+            document.getElementById('projectForm').reset();
+        }
+
     }
 
     const handleCompletedBtn = () => {
@@ -249,7 +269,7 @@ function loadPage() {
         })
     }
 
-return displayAllTodos(), addTodo(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn();
+return displayAllTodos(), addTodo(), addProject(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn();
 }
 
 loadPage();
