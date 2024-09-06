@@ -3,30 +3,24 @@ import projectController from "./project"
 import todoControlller from "./to-do"
 
 
-
-
-
 function loadPage() {
     const project = new projectController();
     const todo = new todoControlller();
     const display = document.getElementById('activeTodos');
     const displayHeading = document.getElementById('displayHeading')
     const projectsDisplay = document.getElementById('projectList')
-    
-    
 
-    todo.createTodo('todo project', 'finish todo project logic', '8/21/2024', 'TOP','high', 'incomplete')
-    todo.createTodo('clean kitchen', 'dishes,wipe down surfaces', 'none', 'chores','low', 'complete')
-    todo.createTodo('groceries', 'pick up groceries', '8/25/2024', 'errands','medium', 'incomplete')
-    todo.createTodo('trash', 'take out trash', '8/21/2024', 'chores','low', 'incomplete')
-    
+    todo.pushStoredtodos();
+    //
+    const storedCompleted = JSON.parse(localStorage.getItem('completedList'))
+    console.log(storedCompleted)
+    //
+    todo.pushStoredCompleted(); 
+
     const makeProjectButton = () => {
-        project.getProjects();
-        
         const  projects = document.getElementById('projectList');
         const projectBtn = document.createElement("button");
         projects.appendChild(projectBtn);
-         
         return projectBtn;
     };
     
@@ -59,6 +53,7 @@ function loadPage() {
         markComplete.type ='checkbox';
         
         markComplete.addEventListener('change', () => {
+            
             const itemIndex = todo.todoList.indexOf(element)
             if (markComplete.checked = true){
                 todo.pushComplete(itemIndex);
@@ -68,10 +63,14 @@ function loadPage() {
         })
 
         deleteBtn.addEventListener("click", () => {
+            
             const itemIndex = todo.todoList.indexOf(element)
             const selectedCard = document.getElementById(todoCard.id)
             selectedCard.remove();
             todo.deleteTodo(itemIndex);
+            if (display.textContent == ''){
+                display.textContent = 'No TODOs to Display'
+            }
         })
         
         editBtn.addEventListener("click", () => {
@@ -88,7 +87,7 @@ function loadPage() {
             description.value = element.description;
             dueDate.value = element.dueDate;
             priority.value =element.priority;  
-
+            
             const itemIndex = todo.todoList.indexOf(element)
             todo.deleteTodo(itemIndex);
         })
@@ -101,16 +100,14 @@ function loadPage() {
         todoCard.appendChild(todoDueDate);
         todoCard.appendChild(todopriority);
         todoCard.appendChild(deleteBtn);
-        todoCard.appendChild(editBtn);
+        todoCard.appendChild(editBtn);    
   }
 
     const addTodo = () => {
-        
         const addTodoDialog = document.getElementById('addTodoDialog')
         const addBtn = document.querySelector('.addTodo');
         addBtn.addEventListener("click", () => {
             addTodoDialog.showModal();
-        
         })
         
         const closeBtn = document.getElementById('closeBtn') 
@@ -121,46 +118,46 @@ function loadPage() {
 
         document.getElementById('todoForm').onsubmit = (event) => {
             event.preventDefault();
-             todo.getTodos();
+            todo.getTodos();
             const title = document.getElementById('title').value;
             const project = document.getElementById('project').value;
             const description = document.getElementById('description').value;
             const dueDate = document.getElementById('dueDate').value;
             const priority = document.getElementById('priority').value;
 
-             todo.createTodo(title, description, dueDate, project, priority); 
+            todo.createTodo(title, description, dueDate, project, priority); 
             
             addTodoDialog.close();
             clearDisplay();
             displayAllTodos();
             pushProjectstoList();
-            document.getElementById('todoForm').reset(); 
-
+            document.getElementById('todoForm').reset();
         }
     }  
 
 
-    const displayProjects = () => {
-        project.getProjects();
+    const displayProjects = () => { 
         for(const element of project.projectList){
             const projectBtn = makeProjectButton(element);
             const projectTitle = element;
             projectBtn.textContent = projectTitle
-
-            
           
             projectBtn.addEventListener ("click", () =>{
                 clearDisplay();
                 displayHeading.textContent = `Project: ${projectTitle}`
+                
                 const filteredtodos = todo.todoList.filter(element => element.project === projectTitle)
                 for (const item of filteredtodos) {
                   makeTodoCard(item)  
                 }
+                if (display.textContent == ''){
+                    display.textContent = 'No TODOs to Display'
+                }
 
                HandleDeleteProject(projectTitle)
-               
             }) 
         }
+        
     }
 const addProject = () => {
         const addProjectDialog = document.getElementById('addProjectDialog')
@@ -176,7 +173,7 @@ const addProject = () => {
             }) 
 
         document.getElementById('projectForm').onsubmit = (event) => {
-            event.preventDefault();
+            event.preventDefault();   
             const newProject = document.getElementById('newProject').value;
             project.createProject(newProject);
             addProjectDialog.close();
@@ -184,14 +181,12 @@ const addProject = () => {
             displayProjects();
             document.getElementById('projectForm').reset();
         }
-
     }
 
     const HandleDeleteProject = (projectTitle) => {
         const deleteProjectBtn = document.createElement('button')
         deleteProjectBtn.textContent = `Delete Project`
         displayHeading.appendChild(deleteProjectBtn)
-        console.log(projectTitle)
 
         if (projectTitle === 'General') {
             deleteProjectBtn.remove();
@@ -218,24 +213,30 @@ const addProject = () => {
     const clearDisplay = () => {
         display.textContent = ''
     }
+
     const clearProjectDisplay = () => {
         projectsDisplay.textContent = ''
     }
 
     const displayAllTodos = () => {
         todo.getTodos();
+        displayHeading.textContent = `All Active TODOs`
         for (const element of todo.todoList) {
             makeTodoCard(element);
-            displayHeading.textContent = `All Active TODOs`
         }  
+        if (display.textContent == ''){
+            display.textContent = 'No TODOs to Display'
+        }
+        console.log(todo.todoList)
     } 
 
     const displayCompletedTodos = () => {
         todo.getcompletedTodos();
-        for(const element of todo.completedList) {
+        for(const element of  todo.completedList) {
             makeTodoCard(element);
             markComplete.remove();
             editBtn.remove();
+            deleteBtn.remove();
         }
     }
 
@@ -243,11 +244,9 @@ const addProject = () => {
         for(const element of todo.todoList){
             project.createProject(element.project);
             }
-            projectsDisplay.textContent = ""
+            clearProjectDisplay();
             displayProjects();
     }
-
-    
 
     const handleCompletedBtn = () => {
         const completedBtn =  document.getElementById('completedBtn')
@@ -255,7 +254,6 @@ const addProject = () => {
             clearDisplay();
             displayHeading.textContent = `Completed TODOs`
             displayCompletedTodos();
-
         })
     }
 
@@ -267,7 +265,8 @@ const addProject = () => {
         })
     }
 
-return displayAllTodos(), addTodo(), addProject(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn();
+return  displayAllTodos(), addTodo(), addProject(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn();
 }
 
 loadPage();
+
