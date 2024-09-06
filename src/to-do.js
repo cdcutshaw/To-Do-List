@@ -33,7 +33,13 @@ export default class todoControlller {
     } 
 
     clearCompleted(){
-        this.completedList = []
+        this.completedList = [] 
+    }
+
+    clearStoredCompleted() {
+        const storedCompleted = JSON.parse(localStorage.getItem('completedList'))
+        this.clearCompleted()
+        this.SaveToLocal()
     }
 
     createTodo(title, description, dueDate, project, priority, /* completionStatus*/)  {
@@ -58,7 +64,6 @@ export default class todoControlller {
         const index = this.todoList.findIndex;
         const todoItem = this.todoList[itemIndex]
         if(index !== -1) {
-            console.log(todoItem);
             this.SaveToLocal();
             return todoItem
         }

@@ -30,7 +30,6 @@ export default class projectController {
         const index = this.projectList.findIndex((project) => project === projectTitle);
         if(index !== -1) {
             this.projectList.splice(index, 1);
-            console.log(this.projectList)
             this.SaveToLocal();
             
         }

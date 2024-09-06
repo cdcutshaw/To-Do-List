@@ -11,10 +11,6 @@ function loadPage() {
     const projectsDisplay = document.getElementById('projectList')
 
     todo.pushStoredtodos();
-    //
-    const storedCompleted = JSON.parse(localStorage.getItem('completedList'))
-    console.log(storedCompleted)
-    //
     todo.pushStoredCompleted(); 
 
     const makeProjectButton = () => {
@@ -68,9 +64,6 @@ function loadPage() {
             const selectedCard = document.getElementById(todoCard.id)
             selectedCard.remove();
             todo.deleteTodo(itemIndex);
-            if (display.textContent == ''){
-                display.textContent = 'No TODOs to Display'
-            }
         })
         
         editBtn.addEventListener("click", () => {
@@ -150,11 +143,9 @@ function loadPage() {
                 for (const item of filteredtodos) {
                   makeTodoCard(item)  
                 }
-                if (display.textContent == ''){
-                    display.textContent = 'No TODOs to Display'
-                }
-
+            
                HandleDeleteProject(projectTitle)
+               handleEmptyDisplay();
             }) 
         }
         
@@ -224,10 +215,6 @@ const addProject = () => {
         for (const element of todo.todoList) {
             makeTodoCard(element);
         }  
-        if (display.textContent == ''){
-            display.textContent = 'No TODOs to Display'
-        }
-        console.log(todo.todoList)
     } 
 
     const displayCompletedTodos = () => {
@@ -253,7 +240,17 @@ const addProject = () => {
         completedBtn.addEventListener("click", () => {
             clearDisplay();
             displayHeading.textContent = `Completed TODOs`
+            const clearBtn = document.createElement('button')
+            clearBtn.textContent = 'Clear Completed'
+            displayHeading.appendChild(clearBtn)
+            clearBtn.addEventListener("click", () =>{
+                todo.clearStoredCompleted()
+                clearDisplay();
+                handleEmptyDisplay()
+                
+            })
             displayCompletedTodos();
+            handleEmptyDisplay();
         })
     }
 
@@ -265,7 +262,14 @@ const addProject = () => {
         })
     }
 
-return  displayAllTodos(), addTodo(), addProject(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn();
+    const handleEmptyDisplay = ()=> {
+        const activeTodos = document.getElementById('activeTodos')
+        if (activeTodos.textContent === ''){
+            activeTodos.textContent = 'No TODOs to Display'
+        }
+    }
+
+return  displayAllTodos(), addTodo(), addProject(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn(), handleEmptyDisplay();
 }
 
 loadPage();
