@@ -28,7 +28,8 @@ function loadPage() {
         const todoDueDate = document.createElement('div');
         const todoproject = document.createElement('div');
         const todopriority = document.createElement('div');
-        const markComplete = document.createElement('input')
+        const markCompleteDiv = document.createElement('div')
+        const markComplete = document.createElement('input');
         const deleteBtn = document.createElement('button');
         const editBtn = document.createElement('button');
         
@@ -39,13 +40,14 @@ function loadPage() {
         markComplete.id = ('markComplete');
         editBtn.id = ('editBtn')
         
-        todoTitle.textContent = `${element.title}`; 
+        todoTitle.textContent = `TODO Title: ${element.title}`; 
         todoDescription.textContent = `Description: ${element.description}`; 
         todoDueDate.textContent = `Due: ${element.dueDate}`; 
         todoproject.textContent = `Project: ${element.project}`; 
         todopriority.textContent = `Priority: ${element.priority}`;
         deleteBtn.textContent = `Delete`
         editBtn.textContent =`Edit`
+        markCompleteDiv.textContent = `Mark Complete?`
         markComplete.type ='checkbox';
         
         markComplete.addEventListener('change', () => {
@@ -86,12 +88,13 @@ function loadPage() {
         })
 
         activeTodos.appendChild(todoCard);
-        todoCard.append(markComplete);
         todoCard.appendChild(todoTitle);
         todoCard.appendChild(todoproject);
         todoCard.appendChild(todoDescription);
         todoCard.appendChild(todoDueDate);
         todoCard.appendChild(todopriority);
+        todoCard.appendChild(markCompleteDiv);
+        markCompleteDiv.append(markComplete);
         todoCard.appendChild(deleteBtn);
         todoCard.appendChild(editBtn);    
   }
