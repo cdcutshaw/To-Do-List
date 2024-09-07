@@ -13,6 +13,10 @@ function loadPage() {
     todo.pushStoredtodos();
     todo.pushStoredCompleted(); 
 
+    const loadDefaultItems = () => {
+        todo.createTodo('ToDo Project', 'finish todo project logic', '2024-09-06', 'TOP','high')
+    }
+
     const makeProjectButton = () => {
         const  projects = document.getElementById('projectList');
         const projectBtn = document.createElement("button");
@@ -272,7 +276,7 @@ const addProject = () => {
         }
     }
 
-return  displayAllTodos(), addTodo(), addProject(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn(), handleEmptyDisplay();
+return  loadDefaultItems(), displayAllTodos(), addTodo(), addProject(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn(), handleEmptyDisplay();
 }
 
 loadPage();
