@@ -8,11 +8,13 @@ export default class projectController {
     }
 
     pushStoredtoList() {
-        const storedProjects = JSON.parse(localStorage.getItem('projectList'))
+        //disabling to test storage is reason git hub pages is not working
+        /* const storedProjects = JSON.parse(localStorage.getItem('projectList'))
         for (const item of storedProjects) {
             if(!this.projectList.includes(item)) {
             this.projectList.push(item) 
-          }}
+          }} */
+         return this.projectList;
     
     } 
   

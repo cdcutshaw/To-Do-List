@@ -21,7 +21,8 @@ export default class todoControlller {
     }
 
     getcompletedTodos() {
-        this.clearCompleted()
+        //disabling to test storage is reason git hub pages is
+        /* this.clearCompleted() */
         this.pushStoredCompleted() 
         this.SaveToLocal();
         return this.completedList;
@@ -37,7 +38,7 @@ export default class todoControlller {
     }
 
     clearStoredCompleted() {
-        const storedCompleted = JSON.parse(localStorage.getItem('completedList'))
+        /* const storedCompleted = JSON.parse(localStorage.getItem('completedList')) */
         this.clearCompleted()
         this.SaveToLocal()
     }
@@ -78,7 +79,8 @@ export default class todoControlller {
     }
 
     pushStoredtodos() {
-        this.clearTodos() 
+        //disabling to test storage is reason git hub pages is
+        /*this.clearTodos() 
         const storedTodos = JSON.parse(localStorage.getItem('todoList'))
         for (const item of storedTodos) {
             let title = item.title
@@ -90,11 +92,13 @@ export default class todoControlller {
             if(!this.todoList.includes(item.title)) { 
             this.todoList.push(newTodo)  
             }  
-        } 
+        }  */
+       return this.todoList
     }
 
     pushStoredCompleted(){
-        const storedCompleted = JSON.parse(localStorage.getItem('completedList'))
+        //disabling to test storage is reason git hub pages is
+        /* const storedCompleted = JSON.parse(localStorage.getItem('completedList'))
         for (const item of storedCompleted) {
             let title = item.title
             let description = item.description
@@ -103,7 +107,8 @@ export default class todoControlller {
             let priority = item.priority
             const completedItem = new todoItem(title, description, dueDate, project, priority)
                 this.completedList.push(completedItem)      
-        }
+        } */
+       return this.completedList
     }
 
     SaveToLocal() {
