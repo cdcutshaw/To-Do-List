@@ -21,8 +21,8 @@ export default class todoControlller {
     }
 
     getcompletedTodos() {
-        //disabling to test storage is reason git hub pages is
-        /* this.clearCompleted() */
+        
+        this.clearCompleted() 
         this.pushStoredCompleted() 
         this.SaveToLocal();
         return this.completedList;
@@ -38,7 +38,7 @@ export default class todoControlller {
     }
 
     clearStoredCompleted() {
-        /* const storedCompleted = JSON.parse(localStorage.getItem('completedList')) */
+     
         this.clearCompleted()
         this.SaveToLocal()
     }
@@ -79,9 +79,11 @@ export default class todoControlller {
     }
 
     pushStoredtodos() {
-        //disabling to test storage is reason git hub pages is
-        /*this.clearTodos() 
+        
+        this.clearTodos() 
         const storedTodos = JSON.parse(localStorage.getItem('todoList'))
+        if (storedTodos.length !== 0) {
+            console.log(storedTodos)
         for (const item of storedTodos) {
             let title = item.title
             let description = item.description
@@ -92,13 +94,19 @@ export default class todoControlller {
             if(!this.todoList.includes(item.title)) { 
             this.todoList.push(newTodo)  
             }  
-        }  */
-       return this.todoList
+        } 
+        return this.todoList
+        } 
+        else if (storedTodos.length === 0) {
+            return this.todoList
+        }
+       
     }
 
     pushStoredCompleted(){
-        //disabling to test storage is reason git hub pages is
-        /* const storedCompleted = JSON.parse(localStorage.getItem('completedList'))
+        
+        const storedCompleted = JSON.parse(localStorage.getItem('completedList'))
+        if (storedCompleted.length !== 0) {
         for (const item of storedCompleted) {
             let title = item.title
             let description = item.description
@@ -107,8 +115,12 @@ export default class todoControlller {
             let priority = item.priority
             const completedItem = new todoItem(title, description, dueDate, project, priority)
                 this.completedList.push(completedItem)      
-        } */
-       return this.completedList
+        } 
+            return this.completedList
+        }
+        else if (storedCompleted === 0){
+            return this.completedList
+        }
     }
 
     SaveToLocal() {
