@@ -9,7 +9,8 @@ export default class projectController {
 
     pushStoredtoList() {
         
-        const storedProjects = JSON.parse(localStorage.getItem('projectList'))
+        let storedProjects = JSON.parse(localStorage.getItem('projectList'))
+        storedProjects = storedProjects.filter(Boolean);
         if (storedProjects.length !== 0){
         for (const item of storedProjects) {
             if(!this.projectList.includes(item)) {

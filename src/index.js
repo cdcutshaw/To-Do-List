@@ -11,7 +11,8 @@ function loadPage() {
     const projectsDisplay = document.getElementById('projectList')
 
     todo.pushStoredtodos();
-    todo.pushStoredCompleted(); 
+    todo.pushStoredCompleted();
+    project.pushStoredtoList(); 
 
     const makeProjectButton = () => {
         const  projects = document.getElementById('projectList');
@@ -38,7 +39,9 @@ function loadPage() {
         todoCard.className = ('todoCard');
         deleteBtn.id = ('deleteBtn');
         markComplete.id = ('markComplete');
-        editBtn.id = ('editBtn')
+        markCompleteDiv.id = ('completeDiv')
+        editBtn.id = ('editBtn');
+
         
         todoTitle.textContent = `TODO Title: ${element.title}`; 
         todoDescription.textContent = `Description: ${element.description}`; 
@@ -57,6 +60,7 @@ function loadPage() {
                 todo.pushComplete(itemIndex);
                 const selectedCard = document.getElementById(todoCard.id)
                 selectedCard.remove();
+                handleEmptyDisplay();
             };
         })
 
@@ -66,6 +70,7 @@ function loadPage() {
             const selectedCard = document.getElementById(todoCard.id)
             selectedCard.remove();
             todo.deleteTodo(itemIndex);
+            handleEmptyDisplay();
         })
         
         editBtn.addEventListener("click", () => {
@@ -218,13 +223,14 @@ const addProject = () => {
         for (const element of todo.todoList) {
             makeTodoCard(element);
         }  
+        handleEmptyDisplay();
     } 
 
     const displayCompletedTodos = () => {
         todo.getcompletedTodos();
         for(const element of  todo.completedList) {
             makeTodoCard(element);
-            markComplete.remove();
+            completeDiv.remove();
             editBtn.remove();
             deleteBtn.remove();
         }
@@ -272,7 +278,7 @@ const addProject = () => {
         }
     }
 
-return   displayAllTodos(), addTodo(), addProject(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn(), handleEmptyDisplay();
+return   displayAllTodos(), displayProjects(), addTodo(), addProject(), pushProjectstoList(), handleAllTodosBtn(), handleCompletedBtn(), handleEmptyDisplay();
 }
 
 loadPage();

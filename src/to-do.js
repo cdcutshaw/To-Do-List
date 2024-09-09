@@ -38,7 +38,6 @@ export default class todoControlller {
     }
 
     clearStoredCompleted() {
-     
         this.clearCompleted()
         this.SaveToLocal()
     }
@@ -81,7 +80,8 @@ export default class todoControlller {
     pushStoredtodos() {
         
         this.clearTodos() 
-        const storedTodos = JSON.parse(localStorage.getItem('todoList'))
+        let storedTodos = JSON.parse(localStorage.getItem('todoList'))
+        storedTodos = storedTodos.filter(Boolean);
         if (storedTodos.length !== 0) {
             console.log(storedTodos)
         for (const item of storedTodos) {
@@ -105,7 +105,8 @@ export default class todoControlller {
 
     pushStoredCompleted(){
         
-        const storedCompleted = JSON.parse(localStorage.getItem('completedList'))
+        let storedCompleted = JSON.parse(localStorage.getItem('completedList'))
+        storedCompleted = storedCompleted.filter(Boolean);
         if (storedCompleted.length !== 0) {
         for (const item of storedCompleted) {
             let title = item.title
@@ -122,6 +123,8 @@ export default class todoControlller {
             return this.completedList
         }
     }
+
+
 
     SaveToLocal() {
         localStorage.setItem("todoList", JSON.stringify(this.todoList));
